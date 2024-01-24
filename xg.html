@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Xg</title>
+  </head>
+  <body>
+    <h1 style="text-align: center">Excepted Goals (XG)</h1>
+    <p style="">
+      A várható gólok, angolul: expected goals (röviden: xG), a
+      labdarúgócsapatok és -játékosok teljesítményének értékelésére használt
+      teljesítménymutató, amely egy gólt eredményező gólszerzési lehetőség
+      valószínűségét jelöli. Az xG számítás valószínűségszámítás, az xG valószínűséget fejez ki egy 0 és 1 közötti mutatóval.
+      <br>
+<h2> Xg számítása: </h2>
+      <ul>
+
+        <li>Lövés szöge a kaputól (0-90 fok között)</li>
+        <li>Lövés távolsága a kaputól (1-100 méter között)</li>
+        <li>A védők száma a támadó és a kapu között (0-11 védő között)</li>
+        <li>A támadás "típusa" (11-es vagy nem) <p style="color : red";>(Ebben az esetben ha 11-es rúgást végeznek az Xg értéke minden esetben : 0.79-re változik)</p></li>
+
+      </ul>
+    </p>
+
+    <h2> Xg alkalmazása: </h2>
+
+    <p>
+      Ez a program csak egy leegyszerűsített Xg számítást végez random generált adatokból. Három támadást elemez ki majd ezek alapján számol, Xg azaz várható gól számát. Egyedűl a 11-esek számát kell manuálisan megadnunk, ha volt a 3 támadásból.
+    </p>
+
+    <h2>A kapott Xg értékek :</h2>
+
+    <script>
+      // "Volt-e tizenyegyes ?"
+
+      let tizi = Number(prompt("Tizenegyeseg száma (ha volt): "));
+
+      //"A tizenyegyesek száma:"
+      if (tizi > 0) {
+        document.write(
+          `<br>Tizenegyesek száma: ${tizi} db, <br>Egy tizenegyes értéke xg-ben (0.79 xg)<br>`
+        );
+      }
+
+      document.write(` <hr>`);
+
+      //"Lövés szöge a kaputól"
+
+      let szog = [];
+      for (let i = 0; i < 3; i++) {
+        let shotAngle = Math.round(Math.random() * (90 - 1)) + 1;
+        szog.push(shotAngle);
+      }
+
+      for (let i = 0; i < szog.length - tizi; i++) {
+        if (szog[i] > 0 && szog[i] < 10) {
+          szog[i] = 0.1;
+        } else if (szog[i] >= 10 && szog[i] < 25) {
+          szog[i] = 0.2;
+        } else if (szog[i] >= 25 && szog[i] < 40) {
+          szog[i] = 0.3;
+        } else if (szog[i] >= 40 && szog[i] < 50) {
+          szog[i] = 0.4;
+        } else if (szog[i] >= 50 && szog[i] < 70) {
+          szog[i] = 0.6;
+        } else {
+          szog[i] = 0.8;
+        }
+        document.write(` Lövés szöge XG-ben:${szog[i]} <br> `);
+      }
+
+      //"Lövés távolsága a kaputól"
+
+      let tav = [];
+      for (let i = 0; i < 3; i++) {
+        let shotRange = Math.round(Math.random() * (100 - 1)) + 1;
+        tav.push(shotRange);
+      }
+
+      for (let i = 0; i < tav.length - tizi; i++) {
+        if (tav[i] <= 100 && tav[i] > 50) {
+          tav[i] = 0.1;
+        } else if (tav[i] <= 50 && tav[i] > 35) {
+          tav[i] = 0.15;
+        } else if (tav[i] <= 35 && tav[i] > 25) {
+          tav[i] = 0.25;
+        } else if (tav[i] <= 25 && tav[i] > 16) {
+          tav[i] = 0.3;
+        } else if (tav[i] >= 16 && tav[i] < 11) {
+          tav[i] = 0.5;
+        } else if (tav[i] >= 11 && tav[i] < 5) {
+          tav[i] = 0.65;
+        } else {
+          tav[i] = 0.8;
+        }
+        document.write(`Lövés táv XG: ${tav[i]} <br>`);
+      }
+
+      // "Védők száma"
+
+      let ved = [];
+      for (let i = 0; i < 3; i++) {
+        let shotRange = Math.round(Math.random() * (11 - 1)) + 1;
+        ved.push(shotRange);
+      }
+
+      for (let i = 0; i < ved.length - tizi; i++) {
+        if (ved[i] <= 11 && ved[i] > 9) {
+          ved[i] = 0.1;
+        } else if (ved[i] <= 9 && ved[i] > 7) {
+          ved[i] = 0.15;
+        } else if (ved[i] <= 7 && ved[i] > 5) {
+          ved[i] = 0.25;
+        } else if (ved[i] <= 5 && ved[i] > 3) {
+          ved[i] = 0.3;
+        } else if (ved[i] >= 3 && ved[i] < 2) {
+          ved[i] = 0.5;
+        } else if (ved[i] >= 2 && ved[i] < 1) {
+          ved[i] = 0.65;
+        } else {
+          ved[i] = 0.8;
+        }
+        document.write(` Védők száma XG: ${ved[i]} <br>`);
+      }
+
+      document.write(` <hr>`);
+
+      //"Az xg számítása:"
+
+      let xg = 0;
+      let xgTomb = [];
+      for (let i = 0; i < ved.length - tizi; i++) {
+        xg = (ved[i] + szog[i] + tav[i]) / 3;
+        xgTomb.push(xg);
+      }
+      for (let i = 0; i < 3; i++) {
+        if (tizi > i) {
+          xgTomb.push(0.79);
+        }
+      }
+
+      document.write(
+        `A három lövés várható gól értéke egyesével: (XG-értéke): <ul><li>${xgTomb[0]}</li>  <li>${xgTomb[1]}</li> <li>${xgTomb[2]}</li></ul> `
+      );
+
+      xgSum = 0;
+      for (let i = 0; i < xgTomb.length; i++) {
+        xgSum = xgSum + xgTomb[i];
+      }
+      document.write(` <hr>`);
+      document.write(
+        `A mérkőzésen a csapat várható gólszáma (XG-értéke): ${xgSum}  `
+      );
+    </script>
+  </body>
+</html>
