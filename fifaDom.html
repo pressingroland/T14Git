@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <title>Fifa Ranglista Dom</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        padding: 0px;
+        margin: 0px;
+        background-color: black;
+        color: white;
+        font-family: monospace;
+      }
+      h1 {
+        text-align: center;
+        padding: 25px;
+        color: white;
+        margin-bottom: 50px;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+      }
+
+      #main {
+        height: 750 px;
+        margin-top: 25px;
+        border-radius: 15px;
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        vertical-align: center;
+        justify-content: center;
+      }
+
+      p {
+        font-size: 25px;
+        margin-bottom: 25px;
+        text-align: center;
+      }
+      #gombokDiv {
+        padding: 25px;
+        display: flex;
+        flex-direction: row;
+        vertical-align: center;
+        justify-content: center;
+      }
+
+      .gombok {
+        padding: 5px;
+      }
+      #atlagGomb:hover{
+
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>FIFA Világ Ranglista</h1>
+
+    <div class="container" id="main">
+      <div id="input">
+        <input
+          type="text"
+          class="form-control"
+          id="Orszag"
+          placeholder="Ország neve"
+        />
+        <div id="gombokDiv" style="padding: 0px">
+          <button
+            type="button"
+            class="btn btn-dark my-3"
+            onclick="SzerepelEAdottOrszagKiir()"
+          >
+            Szerepel-e a ranglistán
+          </button>
+        </div>
+      </div>
+      <div id="gombokDiv">
+        <div class="gombok">
+          <button
+            type="button"
+            class="btn btn-dark my-3"
+            onclick="CsapatSzamaKiir()"
+          >
+            Csapatok száma
+          </button>
+        </div>
+        <div class="gombok">
+          <button
+            type="button"
+            class="btn btn-dark my-3"
+            onclick="PontszamokAtlagaKiir()"
+          >
+            Átlag pontszám
+          </button>
+        </div>
+        <div class="gombok">
+          <a class="nav-link" href="#tableSection"
+            ><button
+              id="atlagGomb"
+              type="button"
+              class="btn btn-dark my-3"
+              onclick="szinValtozokCsapat()"
+              
+            >
+              Átlag feletti csapatok
+            </button></a
+          >
+        </div>
+        <div class="gombok">
+          <button 
+          type="button" 
+          class="btn btn-dark my-3" 
+          onclick="StatisztikaKiirTABLAZAT()" >
+            Statisztika
+          </button>
+        </div>
+      </div>
+      
+      <p id="adatokKiir"></p>
+
+      <table id="table1" class="table table-dark table-striped table-bordered table-hover table-responsive-xl">
+        <tr>
+            <th>Változások</th>
+            <th>Változások mennyisége</th>
+        </tr>
+    </table>
+      
+    <br>
+        <div class="container">
+          <div class="row"></div>
+          <div class="table-responsive-xl">
+            <table class="table table-striped table-bordered">
+              <thead class="table-dark">
+                <tr>
+                  <th>Ország</th>
+                  <th>Helyezés</th>
+                  <th>Változás</th>
+                  <th>Pontszám</th>
+                </tr>
+              </thead>
+              <section id="tableSection">
+              <tbody> 
+                <tr>
+                  <th class="csapatok">Anglia</th>
+                  <th>4</th>
+                  <th class="valtozas">0</th>
+                  <th>1662</th>
+                </tr>
+                
+                <tr>
+                  <th class="csapatok">Argentina</th>
+                  <th>10</th>
+                  <th class="valtozas">0</th>
+                  <th>1614</th>
+                </tr>
+                <tr>
+                  <th class="csapatok">Belgium</th>
+                  <th>1</th>
+                  <th class="valtozas">0</th>
+                  <th>1752</th>
+                </tr>
+                <tr>
+                  <th class="csapatok">Brazília</th>
+                  <th>2</th>
+                  <th class="valtozas">-1</th>
+                  <th>1719</th>
+                </tr>
+                <tr>
+                  <th class="csapatok">Chile</th>
+                  <th>17</th>
+                  <th class="valtozas">-3</th>
+                  <th>1576</th>
+                </tr>
+                <tr>
+                  <th class="csapatok">Dánia</th>
+                  <th>14</th>
+                  <th class="valtozas">-1</th>
+                  <th>1584</th>
+                </tr>
+                <tr>
+                  <th class="csapatok">Franciaország</th>
+                  <th>2</th>
+                  <th class="valtozas">1</th>
+                  <th>1725</th>
+                </tr>
+                <tr>
+                  <th class="csapatok">Hollandia</th>
+                  <th>13</th>
+                  <th class="valtozas">3</th>
+                  <th>1586</th>
+                </tr>
+                <tr>
+                  <th class="csapatok">Horvátország</th>
+                  <th>8</th>
+                  <th class="valtozas">-1</th>
+                  <th>1625</th>
+                </tr>
+                <tr>
+                  <th class="csapatok">Kolumbia</th>
+                  <th>9</th>
+                  <th class="valtozas">-1</th>
+                  <th>1622</th>
+                </tr>
+                <tr>
+                  <th class="csapatok">Mexikó</th>
+                  <th>12</th>
+                  <th class="valtozas">0</th>
+                  <th>1603</th>
+                </tr>
+                <tr>
+                  <th class="csapatok">Németország</th>
+                  <th>16</th>
+                  <th class="valtozas">-1</th>
+                  <th>1580</th>
+                </tr>
+                <tr>
+                  <th class="csapatok">Olaszország</th>
+                  <th>15</th>
+                  <th class="valtozas">1</th>
+                  <th>1583</th>
+                </tr>
+                <tr>
+                  <th class="csapatok">Peru</th>
+                  <th>19</th>
+                  <th class="valtozas">0</th>
+                  <th>1551</th>
+                </tr>
+                <tr>
+                  <th class="csapatok">Portugália</th>
+                  <th>5</th>
+                  <th class="valtozas">1</th>
+                  <th>1643</th>
+                </tr>
+                <tr>
+                  <th class="csapatok">Spanyolország</th>
+                  <th>7</th>
+                  <th class="valtozas">2</th>
+                  <th>1631</th>
+                </tr>
+                <tr>
+                  <th class="csapatok">Svájc</th>
+                  <th>11</th>
+                  <th class="valtozas">0</th>
+                  <th>1604</th>
+                </tr>
+                <tr>
+                  <th class="csapatok">Svédország</th>
+                  <th>18</th>
+                  <th class="valtozas">0</th>
+                  <th>1560</th>
+                </tr>
+                <tr>
+                  <th class="csapatok">Szenegál</th>
+                  <th>20</th>
+                  <th class="valtozas">0</th>
+                  <th>1546</th>
+                </tr>
+                <tr>
+                  <th class="csapatok">Uruguay</th>
+                  <th>6</th>
+                  <th class="valtozas">-1</th>
+                  <th>1639</th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      const csapatAdat = [
+        "Anglia;4;0;1662",
+        "Argentína;10;0;1614",
+        "Belgium;1;0;1752",
+        "Brazília;3;-1;1719",
+        "Chile;17;-3;1576",
+        "Dánia;14;-1;1584",
+        "Franciaország;2;1;1725",
+        "Hollandia;13;3;1586",
+        "Horvátország;8;-1;1625",
+        "Kolumbia;9;-1;1622",
+        "Mexikó;12;0;1603",
+        "Németország;16;-1;1580",
+        "Olaszország;15;1;1583",
+        "Peru;19;0;1551",
+        "Portugália;5;1;1643",
+        "Spanyolország;7;2;1631",
+        "Svájc;11;0;1604",
+        "Svédország;18;0;1560",
+        "Szenegál;20;0;1546",
+        "Uruguay;6;-1;1639",
+      ];
+
+      //Változók szinezése: EXTRA RÉSZ
+
+      function szinValtozok() {
+        let valtozasElemek = document.querySelectorAll(".valtozas");
+        for (let i = 0; i < valtozasElemek.length; i++) {
+          let valtozas = parseInt(valtozasElemek[i].innerHTML);
+          if (valtozas > 0) {
+            valtozasElemek[i].style.color = "green";
+          } else if (valtozas < 0) {
+            valtozasElemek[i].style.color = "red";
+          } else {
+            valtozasElemek[i].style.color = "black";
+          }
+        }
+      }
+      szinValtozok();
+
+      
+
+
+      // Adatok feltöltése:
+
+      function ObjektumFeltolto(feltoltendoElem) {
+        let beolvasottAdatok = [];
+        for (let i = 0; i < feltoltendoElem.length; i++) {
+          let objektum = {};
+          let daraboltSor = feltoltendoElem[i].split(";");
+          objektum.nev = daraboltSor[0];
+          objektum.helyezes = Number(daraboltSor[1]);
+          objektum.valtozas = Number(daraboltSor[2]);
+          objektum.pont = Number(daraboltSor[3]);
+          beolvasottAdatok.push(objektum);
+        }
+        return beolvasottAdatok;
+      }
+
+      const fifaAdatok = ObjektumFeltolto(csapatAdat);
+
+      //Csapatok száma:
+      function CsapatSzama(vizsgaltTomb) {
+        return vizsgaltTomb.length;
+      }
+
+      
+      function CsapatSzamaKiir() {
+        let tagszam = CsapatSzama(fifaAdatok);
+        document.querySelector(
+          "#adatokKiir"
+        ).innerHTML = `Csapatok száma:   ${tagszam} db`;
+      }
+
+      // Átlag pontszám:
+
+      function PontszamokAtlaga(vizsgaltTomb) {
+        let osszeg = 0;
+        for (let i = 0; i < vizsgaltTomb.length; i++) {
+          osszeg += vizsgaltTomb[i].pont;
+        }
+        return Math.round(osszeg / vizsgaltTomb.length);
+      }
+      
+      function PontszamokAtlagaKiir() {
+        let kiirandoErtek = PontszamokAtlaga(fifaAdatok);
+        document.querySelector(
+          "#adatokKiir"
+        ).innerHTML = `Csapatok átlag pontszáma: ${kiirandoErtek} pont`;
+      }
+
+      // Átlag feletti csapatok: 
+
+      function AtlagFelettiek(vizsgaltTomb) {
+        let atlagPont = PontszamokAtlaga(fifaAdatok);
+        let atlagFelettiek = [];
+        for (let i = 0; i < vizsgaltTomb.length; i++) {
+          if (vizsgaltTomb[i].pont > atlagPont) {
+            atlagFelettiek.push(vizsgaltTomb[i].nev);
+          }
+        }
+        return atlagFelettiek;
+      
+      }
+        
+     //  (piros színváltozással) EXTRA RÉSZ   
+
+    function szinValtozokCsapat() {
+      let valtozasElemek = document.querySelectorAll(".csapatok");
+      let atlagF = AtlagFelettiek(fifaAdatok); 
+
+      for (let i = 0; i < valtozasElemek.length; i++) {
+        let csapatNev = valtozasElemek[i].innerHTML.trim();
+        let szerepelt = false;
+
+      for (let j = 0; j < atlagF.length; j++) {
+        if (csapatNev === atlagF[j]) {
+          szerepelt = true;
+          break;
+      }
+    }
+
+    if (szerepelt==true) {
+      valtozasElemek[i].style.color = "red";
+    } else {
+      valtozasElemek[i].style.color = "black";
+    }
+  }
+}
+
+
+
+      //Szerepel-e az adott csapat:
+
+      function NevKiolvaso() {
+        let orszagNeve = document.querySelector("#Orszag").value;
+        return orszagNeve;
+      }
+
+      function SzerepelEAdottOrszag(vizsgaltTomb, orszagNeve) {
+        for (let i = 0; i < vizsgaltTomb.length; i++) {
+          if (vizsgaltTomb[i].nev == orszagNeve) {
+            return true;
+          }
+        }
+        return false;
+      }
+
+      function SzerepelEAdottOrszagKiir() {
+        let adottOrszag = NevKiolvaso();
+        let csatlakozasVoltE = SzerepelEAdottOrszag(fifaAdatok, adottOrszag);
+        if (csatlakozasVoltE == true) {
+          document.querySelector(
+            "#adatokKiir"
+          ).innerHTML = `${adottOrszag} válogatottja, szerepel a ranglistán`;
+        } else {
+          document.querySelector(
+            "#adatokKiir"
+          ).innerHTML = `Nem található a ranglistán.`;
+        }
+      }
+
+      
+      
+
+
+      //Statisztika : 
+
+      
+
+function ValtozasTipusok(vizsgaltTomb){
+	  let valtozasTipusok=[];
+      for(let i=0;i<vizsgaltTomb.length;i++){
+    	  let szerepelE=false;
+        for(let j=0;j<valtozasTipusok.length;j++){
+        	if(vizsgaltTomb[i].valtozas==valtozasTipusok[j]){
+            	szerepelE=true;
+            }
+        }
+        if(szerepelE==false){
+        	valtozasTipusok.push(vizsgaltTomb[i].valtozas);
+        }
+    }
+    return valtozasTipusok;
+}
+function ValtozasMennyisegek(vizsgaltTomb, valtozasTipusok){
+	let valtozasMennyisegek=[];
+    for(let i=0;i<valtozasTipusok.length;i++){
+    	valtozasMennyisegek.push(0);
+    }
+    for(let i=0;i<vizsgaltTomb.length;i++){
+        for(let j=0;j<valtozasTipusok.length;j++){
+        	if(vizsgaltTomb[i].valtozas==valtozasTipusok[j]){
+             	valtozasMennyisegek[j]++;
+            }
+        }
+    }
+    return valtozasMennyisegek;
+}
+
+let valtozasokTipusai=ValtozasTipusok(fifaAdatok)
+let valtozasokMennyisegei=ValtozasMennyisegek(fifaAdatok, valtozasokTipusai);
+console.log(valtozasokTipusai);
+console.log(valtozasokMennyisegei);
+
+function StatisztikaKiirTABLAZAT(){
+        let valtozasok = ValtozasTipusok(fifaAdatok);
+        let mennyisegek = ValtozasMennyisegek(fifaAdatok, valtozasok);
+        let table = document.querySelector("#table1");
+
+        for(let i=0;i<valtozasok.length;i++){
+                let row = table.insertRow(-1);
+                let cell1 = row.insertCell(0);
+                let cell2 = row.insertCell(1);
+                cell1.innerHTML = valtozasok[i];
+                cell2.innerHTML = `${mennyisegek[i]} db`; 
+        }
+        
+    }
+             
+    </script>
+  </body>
+</html>
